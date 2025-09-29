@@ -47,7 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mJumpSpeed: 5
-  mMoveSpeed: 2
+  mMaxMoveSpeed: 5
+  mMoveSpeedAcceleration: 40
   mMaxFallSpeed: 50
 --- !u!143 &8798518090685473405
 CharacterController:

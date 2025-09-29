@@ -1,14 +1,14 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 
 [RequireComponent(typeof(CharacterController))]
 public class MovementController : MonoBehaviour
 {
     [SerializeField] float mJumpSpeed = 15f;
     [SerializeField] float mMaxMoveSpeed = 5f;
-    [SerializeField] float mMoveSpeedAcceleration = 5f;
+    [SerializeField] float mGroundMoveSpeedAcceleration = 40f;
+    [SerializeField] float mAirMoveSpeedAcceleration = 5f;
+
     [SerializeField] float mMaxFallSpeed = 50f;
     private PlayerInputActions mPlayerInputActions;
     private CharacterController mCharacterController;
@@ -66,9 +66,39 @@ public class MovementController : MonoBehaviour
             mVerticalVelocity.y += Physics.gravity.y * Time.deltaTime;
         }
 
-        mHorizontalVelocity += mMoveInput.x * Camera.main.transform.right * mMoveSpeedAcceleration * Time.deltaTime;
-        mHorizontalVelocity = Vector3.ClampMagnitude(mHorizontalVelocity, mMaxMoveSpeed);
-
+        UpdateHorizontalVelocity();
         mCharacterController.Move((mHorizontalVelocity + mVerticalVelocity) * Time.deltaTime);
+    }
+
+    void UpdateHorizontalVelocity()
+    {
+        Vector3 moveDir = PlayerInputToWorldDir(mMoveInput);
+
+        float acceleration = mCharacterController.isGrounded ? mGroundMoveSpeedAcceleration : mAirMoveSpeedAcceleration;
+
+        if (moveDir.sqrMagnitude > 0)
+        {
+            mHorizontalVelocity += moveDir * acceleration * Time.deltaTime;
+            mHorizontalVelocity = Vector3.ClampMagnitude(mHorizontalVelocity, mMaxMoveSpeed);
+        }
+        else
+        {
+            if (mHorizontalVelocity.sqrMagnitude > 0)
+            {
+                mHorizontalVelocity -= mHorizontalVelocity.normalized * acceleration * Time.deltaTime;
+                if (mHorizontalVelocity.sqrMagnitude < 0.1)
+                {
+                    mHorizontalVelocity = Vector3.zero;
+                }
+            }
+        }
+    }
+
+    Vector3 PlayerInputToWorldDir(Vector2 inputVal)
+    {
+        Vector3 rightDir = Camera.main.transform.right;
+        Vector3 fwdDir = Vector3.Cross(rightDir, Vector3.up);
+
+        return rightDir * inputVal.x + fwdDir * inputVal.y; 
     }
 }

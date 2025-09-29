@@ -5285,7 +5285,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6994544679369641077, guid: 05ca845664e9782458b285477fc7012f, type: 3}
       propertyPath: mMoveSpeedAcceleration
-      value: 20
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 932115242302292795, guid: 05ca845664e9782458b285477fc7012f, type: 3}
       propertyPath: m_Name
@@ -6974,13 +6974,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1184022127}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.04689493, y: 0.95287395, z: -0.20091641, w: 0.2224068}
+  m_LocalRotation: {x: 0.035824835, y: 0.9616536, z: -0.15348789, w: 0.22445603}
   m_LocalPosition: {x: 56.755947, y: 3.3611321, z: 34.43448}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 18.137, y: 153.724, z: 0}
 --- !u!4 &1193883696 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6738493896694888522, guid: 6637612a134e1e74a8c4a2d5b55da318, type: 3}
