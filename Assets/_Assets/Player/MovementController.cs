@@ -8,10 +8,11 @@ public class MovementController : MonoBehaviour
     [SerializeField] float mMaxMoveSpeed = 5f;
     [SerializeField] float mGroundMoveSpeedAcceleration = 40f;
     [SerializeField] float mAirMoveSpeedAcceleration = 5f;
-
+    [SerializeField] float mTurnLerpRate = 40f;
     [SerializeField] float mMaxFallSpeed = 50f;
-    private PlayerInputActions mPlayerInputActions;
     private CharacterController mCharacterController;
+
+    private Animator mAnimator;
 
     private Vector3 mVerticalVelocity;
     private Vector3 mHorizontalVelocity;
@@ -19,22 +20,17 @@ public class MovementController : MonoBehaviour
 
     void Awake()
     {
-        mPlayerInputActions = new PlayerInputActions();
-        mPlayerInputActions.Gameplay.Jump.performed += PerformJump;
-
-        mPlayerInputActions.Gameplay.Move.performed += HandleMoveInput;
-        mPlayerInputActions.Gameplay.Move.canceled += HandleMoveInput;
-
         mCharacterController = GetComponent<CharacterController>();
+        mAnimator = GetComponent<Animator>();
     }
 
-    private void HandleMoveInput(InputAction.CallbackContext context)
+    public void HandleMoveInput(InputAction.CallbackContext context)
     {
         mMoveInput = context.ReadValue<Vector2>();
         Debug.Log($"move input is: {mMoveInput}");
     }
 
-    private void PerformJump(InputAction.CallbackContext context)
+    public void PerformJump(InputAction.CallbackContext context)
     {
         Debug.Log($"Jumping!");
         if (mCharacterController.isGrounded)
@@ -43,15 +39,6 @@ public class MovementController : MonoBehaviour
         }
     }
 
-    void OnEnable()
-    {
-        mPlayerInputActions.Enable();
-    }
-
-    void OnDisable()
-    {
-        mPlayerInputActions.Disable();
-    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -68,6 +55,13 @@ public class MovementController : MonoBehaviour
 
         UpdateHorizontalVelocity();
         mCharacterController.Move((mHorizontalVelocity + mVerticalVelocity) * Time.deltaTime);
+        if (mHorizontalVelocity.sqrMagnitude > 0)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(mHorizontalVelocity.normalized, Vector3.up),
+            Time.deltaTime * mTurnLerpRate);
+        }
+
+        mAnimator.SetFloat("Speed", mHorizontalVelocity.magnitude);
     }
 
     void UpdateHorizontalVelocity()
