@@ -54,6 +54,10 @@ MonoBehaviour:
   mAirMoveSpeedAcceleration: 5
   mTurnLerpRate: 40
   mMaxFallSpeed: 50
+  mAirCheckRadius: 0.5
+  mAirCheckLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!143 &8798518090685473405
 CharacterController:
   m_ObjectHideFlags: 0

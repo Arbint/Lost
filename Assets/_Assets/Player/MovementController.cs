@@ -10,6 +10,8 @@ public class MovementController : MonoBehaviour
     [SerializeField] float mAirMoveSpeedAcceleration = 5f;
     [SerializeField] float mTurnLerpRate = 40f;
     [SerializeField] float mMaxFallSpeed = 50f;
+    [SerializeField] float mAirCheckRadius = 0.5f;
+    [SerializeField] LayerMask mAirCheckLayerMask = 1;
     private CharacterController mCharacterController;
 
     private Animator mAnimator;
@@ -17,6 +19,10 @@ public class MovementController : MonoBehaviour
     private Vector3 mVerticalVelocity;
     private Vector3 mHorizontalVelocity;
     private Vector2 mMoveInput;
+
+    private bool mShouldTryJump;
+
+    private bool mIsInAir;
 
     void Awake()
     {
@@ -27,41 +33,88 @@ public class MovementController : MonoBehaviour
     public void HandleMoveInput(InputAction.CallbackContext context)
     {
         mMoveInput = context.ReadValue<Vector2>();
-        Debug.Log($"move input is: {mMoveInput}");
+        //Debug.Log($"move input is: {mMoveInput}");
     }
 
     public void PerformJump(InputAction.CallbackContext context)
     {
         Debug.Log($"Jumping!");
-        if (mCharacterController.isGrounded)
+        if (!mIsInAir)
         {
-            mVerticalVelocity.y = mJumpSpeed;
+            mShouldTryJump = true;
         }
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    bool IsInAir()
     {
+        if (mCharacterController.isGrounded)
+        {
+            return false;
+        }
 
+        Collider[] airCheckColliders = Physics.OverlapSphere(transform.position, mAirCheckRadius, mAirCheckLayerMask);
+        foreach (Collider collider in airCheckColliders)
+        {
+            if (collider.gameObject != gameObject)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (mVerticalVelocity.y > -mMaxFallSpeed)
-        {
-            mVerticalVelocity.y += Physics.gravity.y * Time.deltaTime;
-        }
+        mIsInAir = IsInAir();
 
+        UpdateVerticalVelocity();
         UpdateHorizontalVelocity();
+        UpdateTransform();
+        UpdateAnimation();
+    }
+
+    private void UpdateAnimation()
+    {
+        mAnimator.SetFloat("Speed", mHorizontalVelocity.magnitude);
+        mAnimator.SetBool("Landed", !mIsInAir);
+    }
+
+    private void UpdateTransform()
+    {
         mCharacterController.Move((mHorizontalVelocity + mVerticalVelocity) * Time.deltaTime);
         if (mHorizontalVelocity.sqrMagnitude > 0)
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(mHorizontalVelocity.normalized, Vector3.up),
             Time.deltaTime * mTurnLerpRate);
         }
+    }
 
-        mAnimator.SetFloat("Speed", mHorizontalVelocity.magnitude);
+    private void UpdateVerticalVelocity()
+    {
+        // Try jump first if should try jump is true
+        if (mShouldTryJump && !mIsInAir)
+        {
+            mVerticalVelocity.y = mJumpSpeed;
+            mAnimator.SetTrigger("Jump");
+            mShouldTryJump = false;
+            return;
+        }
+
+        //we are on the ground, set the velocity to a small velocity going down
+        if (mCharacterController.isGrounded)
+        {
+            mAnimator.ResetTrigger("Jump");
+            mVerticalVelocity.y = -1f;
+            return;
+        }
+
+        // free falling
+        if (mVerticalVelocity.y > -mMaxFallSpeed)
+        {
+            mVerticalVelocity.y += Physics.gravity.y * Time.deltaTime;
+        }
     }
 
     void UpdateHorizontalVelocity()
@@ -93,6 +146,12 @@ public class MovementController : MonoBehaviour
         Vector3 rightDir = Camera.main.transform.right;
         Vector3 fwdDir = Vector3.Cross(rightDir, Vector3.up);
 
-        return rightDir * inputVal.x + fwdDir * inputVal.y; 
+        return rightDir * inputVal.x + fwdDir * inputVal.y;
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = mIsInAir ? Color.red : Color.green;
+        Gizmos.DrawSphere(transform.position, mAirCheckRadius);
     }
 }

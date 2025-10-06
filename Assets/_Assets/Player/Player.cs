@@ -39,10 +39,4 @@ public class Player : MonoBehaviour
     {
         mPlayerInputActions.Disable();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
