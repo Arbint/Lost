@@ -6,9 +6,27 @@ public class GameMode : MonoBehaviour
 
     Player mPlayerGameObject;
 
+    public Player mPlayer => mPlayerGameObject;
+    public static GameMode MainGameMode;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void OnDestroy()
+    {
+        if (MainGameMode == this)
+        {
+            MainGameMode = null;
+        }
+    }
+
     void Awake()
     {
+        if (MainGameMode != null)
+        {
+            Destroy(gameObject);
+        }
+
+        MainGameMode = this;
+
         PlayerStart playerStart = FindFirstObjectByType<PlayerStart>();
         if (!playerStart)
         {
