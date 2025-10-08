@@ -9,6 +9,8 @@ public class GameMode : MonoBehaviour
     public Player mPlayer => mPlayerGameObject;
     public static GameMode MainGameMode;
 
+    public BattleManager BattleManager { get; private set; }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void OnDestroy()
     {
@@ -26,6 +28,8 @@ public class GameMode : MonoBehaviour
         }
 
         MainGameMode = this;
+
+        BattleManager = new BattleManager();
 
         PlayerStart playerStart = FindFirstObjectByType<PlayerStart>();
         if (!playerStart)
