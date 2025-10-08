@@ -1,4 +1,5 @@
 using System;
+using Unity.Behavior;
 using UnityEngine;
 using UnityEngine.Timeline;
 
@@ -10,13 +11,31 @@ public class Enemy : MonoBehaviour
         get { return mTarget; }
         set
         {
+            if (Target == value)
+                return;
+
+            if (value == null)
+            {
+                mBehaviorGraphAgent.BlackboardReference.SetVariableValue("HasLastSeenPosition", true);
+                mBehaviorGraphAgent.BlackboardReference.SetVariableValue("TargetLastSeenPosition", mTarget.transform.position);
+            }
             mTarget = value;
+            mBehaviorGraphAgent.BlackboardReference.SetVariableValue("Target", mTarget);
         }
     }
 
     [SerializeField] float mEyeHeight = 1.5f;
     [SerializeField] float mSightDistance = 5f;
     [SerializeField] float mViewAngle = 30f;
+    [SerializeField] float mAlwaysAwareDistance = 1.5f;
+
+    BehaviorGraphAgent mBehaviorGraphAgent;
+
+    void Awake()
+    {
+        mBehaviorGraphAgent = GetComponent<BehaviorGraphAgent>();
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -40,7 +59,14 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        if (Vector3.Distance(player.transform.position, transform.position) > mSightDistance)
+        float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
+        if (distanceToPlayer <= mAlwaysAwareDistance)
+        {
+            Target = player.gameObject;
+            return;
+        }
+
+        if (distanceToPlayer > mSightDistance)
         {
             Target = null;
             Debug.Log($"Player too far");
@@ -73,6 +99,7 @@ public class Enemy : MonoBehaviour
     {
         Vector3 eyeViewPoint = transform.position + Vector3.up * mEyeHeight;
         Gizmos.DrawWireSphere(eyeViewPoint, mSightDistance);
+        Gizmos.DrawWireSphere(eyeViewPoint, mAlwaysAwareDistance);
 
         Vector3 leftLineDir = Quaternion.AngleAxis(mViewAngle, Vector3.up) * transform.forward;
         Vector3 rightLineDir = Quaternion.AngleAxis(-mViewAngle, Vector3.up) * transform.forward;
