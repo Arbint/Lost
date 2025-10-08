@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7700318909012420482}
   - component: {fileID: 7487546096248848093}
   - component: {fileID: -1881682305696108637}
+  - component: {fileID: 6982502778097735694}
   m_Layer: 0
   m_Name: Chomper
   m_TagString: Untagged
@@ -48,6 +49,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a03b4241553469f4fba6bfe21c5d70a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mEyeHeight: 1.5
+  mSightDistance: 5
+  mViewAngle: 30
+  mAlwaysAwareDistance: 1.5
 --- !u!54 &7700318909012420482
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -111,12 +116,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Graph: {fileID: -1343894167175672740, guid: e3e4816236fa9774f88ad9086635e542, type: 2}
-  m_BlackboardVariableOverridesList: []
+  m_BlackboardVariableOverridesList:
+  - rid: 6846904298633953863
   m_IsInitialised: 0
   m_IsStarted: 0
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 6846904298633953863
+      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 1
+          m_Value1: 0
+        Name: Self
+        m_Value: {fileID: 5632677427738479681}
+--- !u!114 &6982502778097735694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5632677427738479681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28ff78fc924aa804094ebe93f2a5a83a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mBattleCharactersPrefabs:
+  - {fileID: 5906005246517476532, guid: ff59588579289674fa02571638a9fbf9, type: 3}
+  - {fileID: 5906005246517476532, guid: ff59588579289674fa02571638a9fbf9, type: 3}
+  - {fileID: 5906005246517476532, guid: ff59588579289674fa02571638a9fbf9, type: 3}
+  - {fileID: 5906005246517476532, guid: ff59588579289674fa02571638a9fbf9, type: 3}
 --- !u!1001 &583923220441518805
 PrefabInstance:
   m_ObjectHideFlags: 0
