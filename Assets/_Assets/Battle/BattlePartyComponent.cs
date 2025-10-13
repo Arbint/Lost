@@ -7,6 +7,21 @@ public class BattlePartyComponent : MonoBehaviour
 
     List<BattleCharacter> mBattleCharacters;
 
+    IViewClient mOwnerViewClient;
+
+    void Awake()
+    {
+        mOwnerViewClient = GetComponent<IViewClient>();
+    }
+
+    public void FinishPrep()
+    {
+        if(mOwnerViewClient is not null)
+        {
+            mOwnerViewClient.SetViewTarget(mBattleCharacters[0].transform);
+        }
+    }
+
     public List<BattleCharacter> GetBattleCharacters()
     {
         if (mBattleCharacters == null)

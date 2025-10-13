@@ -27,11 +27,13 @@ public class BattleManager
         }
 
         int i = 0;
-        foreach(BattleCharacter partyBattleCharacter in party.GetBattleCharacters())
+        foreach (BattleCharacter partyBattleCharacter in party.GetBattleCharacters())
         {
             partyBattleCharacter.transform.position = partyBattleSite.GetPositionForUnit(i);
             partyBattleCharacter.transform.rotation = partyBattleSite.transform.rotation;
             i++;
         }
+
+        party.FinishPrep();
     }
 }
