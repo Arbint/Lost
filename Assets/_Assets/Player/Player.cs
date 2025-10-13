@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 
     private PlayerInputActions mPlayerInputActions;
     private MovementController mMovementController;
+    private BattlePartyComponent mBattlePartyComponent;
 
     private BattleState mBattleState;
 
@@ -30,6 +31,8 @@ public class Player : MonoBehaviour
 
         mPlayerInputActions.Gameplay.Look.performed += (context) => mCameraRig.SetLookInput(context.ReadValue<Vector2>());
         mPlayerInputActions.Gameplay.Look.canceled += (context) => mCameraRig.SetLookInput(context.ReadValue<Vector2>());
+
+        mBattlePartyComponent = GetComponent<BattlePartyComponent>();
     }
 
     void OnEnable()

@@ -50,11 +50,11 @@ public class Enemy : MonoBehaviour
 
     private void UpdatePlayerPerception()
     {
-        Debug.Log($"Checking Perception");
+        // Debug.Log($"Checking Perception");
         Player player = GameMode.MainGameMode.mPlayer;
         if (!player)
         {
-            Debug.Log($"Player Do not exist");
+            // Debug.Log($"Player Do not exist");
             Target = null;
             return;
         }
@@ -69,7 +69,7 @@ public class Enemy : MonoBehaviour
         if (distanceToPlayer > mSightDistance)
         {
             Target = null;
-            Debug.Log($"Player too far");
+            // Debug.Log($"Player too far");
             return;
         }
 
@@ -77,7 +77,7 @@ public class Enemy : MonoBehaviour
         if (Vector3.Angle(playerDir, transform.forward) > mViewAngle)
         {
             Target = null;
-            Debug.Log($"Player out of angle");
+            // Debug.Log($"Player out of angle");
             return;
         }
 
@@ -87,7 +87,7 @@ public class Enemy : MonoBehaviour
             if (hitInfo.collider.gameObject != player.gameObject)
             {
                 Target = null;
-                Debug.Log($"Player blocked by: {hitInfo.collider.gameObject.name}");
+                // Debug.Log($"Player blocked by: {hitInfo.collider.gameObject.name}");
                 return;
             }
         }

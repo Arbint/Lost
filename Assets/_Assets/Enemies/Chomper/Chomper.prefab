@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7487546096248848093}
   - component: {fileID: -1881682305696108637}
   - component: {fileID: 6982502778097735694}
+  - component: {fileID: 4569498866154138862}
   m_Layer: 0
   m_Name: Chomper
   m_TagString: Untagged
@@ -148,6 +149,28 @@ MonoBehaviour:
   - {fileID: 5906005246517476532, guid: ff59588579289674fa02571638a9fbf9, type: 3}
   - {fileID: 5906005246517476532, guid: ff59588579289674fa02571638a9fbf9, type: 3}
   - {fileID: 5906005246517476532, guid: ff59588579289674fa02571638a9fbf9, type: 3}
+--- !u!95 &4569498866154138862
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5632677427738479681}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 2732fe64dd2799f439fb845921df626b, type: 3}
+  m_Controller: {fileID: 9100000, guid: c6bac5b346bac4242829515cfd5c1f62, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &583923220441518805
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -198,6 +221,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 2732fe64dd2799f439fb845921df626b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: 2732fe64dd2799f439fb845921df626b, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
