@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class CameraRig : MonoBehaviour
@@ -35,5 +36,11 @@ public class CameraRig : MonoBehaviour
         mPitch = mPitch + mRotationRate * Time.deltaTime * mLookInput.y;
         mPitch = Mathf.Clamp(mPitch, mPitchMin, mPitchMax);
         mPitchTransform.localEulerAngles = new Vector3(mPitch, 0f, 0f);
+    }
+
+    internal void ResetViewAngle()
+    {
+        mPitch = 0f;
+        mYawTransform.localRotation = Quaternion.identity;
     }
 }

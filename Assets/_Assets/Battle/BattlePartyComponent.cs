@@ -19,6 +19,7 @@ public class BattlePartyComponent : MonoBehaviour
         if(mOwnerViewClient is not null)
         {
             mOwnerViewClient.SetViewTarget(mBattleCharacters[0].transform);
+            mOwnerViewClient.ResetViewAngle();
         }
     }
 
