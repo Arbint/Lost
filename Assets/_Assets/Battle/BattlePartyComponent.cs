@@ -16,6 +16,10 @@ public class BattlePartyComponent : MonoBehaviour
 
     public void FinishPrep()
     {
+    }
+
+    public void UpdateView()
+    {
         if(mOwnerViewClient is not null)
         {
             mOwnerViewClient.SetViewTarget(mBattleCharacters[0].transform);

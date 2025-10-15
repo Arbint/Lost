@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mCameraRigPefab: {fileID: 212605795911599825, guid: ba78a8ccc19cca84db3333bbdb4dbc40, type: 3}
+  mGameplayWidgetPrefab: {fileID: -2176582844872562322, guid: 689e1de21ad4a724993687c27b23eb3a, type: 3}
 --- !u!95 &8483771982143452786
 Animator:
   serializedVersion: 7

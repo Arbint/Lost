@@ -1,21 +1,37 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleManager 
+public class BattleManager : MonoBehaviour
 {
     List<BattleSite> mBattleSites;
-    
+    List<BattleCharacter> mBattleCharacters = new List<BattleCharacter>();
+
     public void StartBattle(BattlePartyComponent playerParty, BattlePartyComponent enemyParty)
     {
-        if(mBattleSites == null)
+        mBattleCharacters.Clear();
+        if (mBattleSites == null)
         {
             mBattleSites = new List<BattleSite>();
-            mBattleSites.AddRange(GameObject.FindObjectsByType<BattleSite>(FindObjectsSortMode.None)); 
+            mBattleSites.AddRange(GameObject.FindObjectsByType<BattleSite>(FindObjectsSortMode.None));
         }
 
         PrepParty(playerParty);
         PrepParty(enemyParty);
+        StartCoroutine(StartTurns());
+    }
+
+    IEnumerator StartTurns()
+    {
+        //TODO: refactor to not hard code the delay
+        yield return new WaitForSeconds(2);
+        NextTurn();
+    }
+
+    void NextTurn()
+    {
+
     }
 
     private void PrepParty(BattlePartyComponent party)
@@ -31,6 +47,8 @@ public class BattleManager
         {
             partyBattleCharacter.transform.position = partyBattleSite.GetPositionForUnit(i);
             partyBattleCharacter.transform.rotation = partyBattleSite.transform.rotation;
+            partyBattleCharacter.OnTurnFinished += NextTurn;
+            mBattleCharacters.Add(partyBattleCharacter);
             i++;
         }
 
