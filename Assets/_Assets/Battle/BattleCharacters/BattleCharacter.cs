@@ -18,13 +18,19 @@ public class BattleCharacter : MonoBehaviour
 
     public void TakeTurn()
     {
-        Invoke("FinshTurn", 1);
+        Invoke("FinishTurn", 1);
         mTurnIndicator.SetActive(true);
+        CooldownTimeRemaining = CooldownDuration;
     }
 
     public void FinishTurn()
     {
         mTurnIndicator.SetActive(false);
         OnTurnFinished?.Invoke();
+    }
+
+    internal void AdvanceCooldown(float advanceTime)
+    {
+        CooldownTimeRemaining -= advanceTime;
     }
 }

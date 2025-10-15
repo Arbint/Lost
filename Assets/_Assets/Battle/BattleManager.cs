@@ -1,4 +1,4 @@
-using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,7 +31,20 @@ public class BattleManager : MonoBehaviour
 
     void NextTurn()
     {
+        mBattleCharacters = mBattleCharacters.OrderBy(
+            (battleCharacter) => { return battleCharacter.CooldownTimeRemaining; }).ToList();
 
+        float advanceTime = mBattleCharacters[0].CooldownTimeRemaining;
+        foreach(BattleCharacter battleCharacter in mBattleCharacters)
+        {
+            battleCharacter.AdvanceCooldown(advanceTime);
+        }
+
+        BattleCharacter nextInTurn = mBattleCharacters[0];
+        nextInTurn.TakeTurn();
+
+        mBattleCharacters.Remove(nextInTurn);
+        mBattleCharacters.Add(nextInTurn);
     }
 
     private void PrepParty(BattlePartyComponent party)
