@@ -10,6 +10,8 @@ public class BattlePartyComponent : MonoBehaviour
 
     IViewClient mOwnerViewClient;
 
+    public event Action<BattleCharacter> onBAttleCharacterTakeTurn;
+
     void Awake()
     {
         mOwnerViewClient = GetComponent<IViewClient>();
@@ -36,7 +38,7 @@ public class BattlePartyComponent : MonoBehaviour
             foreach (BattleCharacter battleCharacter in mBattleCharactersPrefabs)
             {
                 BattleCharacter newBattleCharacter = Instantiate(battleCharacter);
-                newBattleCharacter.onTurnStarted += ChangeViewTo;
+                newBattleCharacter.onTurnStarted += CharacterInTurn;
                 mBattleCharacters.Add(newBattleCharacter);
             }
         }
@@ -44,8 +46,9 @@ public class BattlePartyComponent : MonoBehaviour
         return mBattleCharacters;
     }
 
-    private void ChangeViewTo(BattleCharacter character)
+    private void CharacterInTurn(BattleCharacter character)
     {
+        onBAttleCharacterTakeTurn?.Invoke(character);
         if(mOwnerViewClient is not null && character)
         {
             mOwnerViewClient.SetViewTarget(character.transform); 
