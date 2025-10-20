@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,11 +35,21 @@ public class BattlePartyComponent : MonoBehaviour
             mBattleCharacters = new List<BattleCharacter>();
             foreach (BattleCharacter battleCharacter in mBattleCharactersPrefabs)
             {
-                mBattleCharacters.Add(Instantiate(battleCharacter));
+                BattleCharacter newBattleCharacter = Instantiate(battleCharacter);
+                newBattleCharacter.onTurnStarted += ChangeViewTo;
+                mBattleCharacters.Add(newBattleCharacter);
             }
         }
 
         return mBattleCharacters;
+    }
+
+    private void ChangeViewTo(BattleCharacter character)
+    {
+        if(mOwnerViewClient is not null && character)
+        {
+            mOwnerViewClient.SetViewTarget(character.transform); 
+        }
     }
 }
 
