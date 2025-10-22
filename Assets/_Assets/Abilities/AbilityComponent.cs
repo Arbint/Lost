@@ -21,4 +21,9 @@ public class AbilityComponent : MonoBehaviour
         newAbility.Init(this);
         mAbilities.Add(newAbility);
     }
+
+    internal IEnumerable<Ability> GetAbilities()
+    {
+        return mAbilities;
+    }
 }
