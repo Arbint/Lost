@@ -1,9 +1,11 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class AbilityWidget : MonoBehaviour
 {
     Button mButton;
+    [SerializeField] TextMeshProUGUI mAbilityNameText;
     void Awake()
     {
         mButton = GetComponent<Button>();
@@ -13,6 +15,7 @@ public class AbilityWidget : MonoBehaviour
     public void SetAbility(Ability ability)
     {
         mAbility = ability;
+        mAbilityNameText.SetText(ability.AbilityName);
     }
 
     void ActivateAbility()
