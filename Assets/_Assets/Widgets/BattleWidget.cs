@@ -12,7 +12,8 @@ public class BattleWidget : MonoBehaviour
     {
         foreach(Transform existingEntries in mAbilityListLayoutGroup.transform)
         {
-            Destroy(existingEntries.gameObject);
+            //Destroy(existingEntries.gameObject);
+            Debug.Log($"this is a new log");
         }
 
         mCharacterControlWidget.gameObject.SetActive(true);
