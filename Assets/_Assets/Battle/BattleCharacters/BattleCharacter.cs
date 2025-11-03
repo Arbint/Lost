@@ -31,7 +31,7 @@ public class BattleCharacter : MonoBehaviour
 
     public void TakeTurn()
     {
-        Invoke("FinishTurn", 1);
+        // Invoke("FinishTurn", 1);
         mTurnIndicator.SetActive(true);
         onTurnStarted?.Invoke(this);
         CooldownTimeRemaining = CooldownDuration;

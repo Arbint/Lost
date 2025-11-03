@@ -83,6 +83,14 @@ PrefabInstance:
       propertyPath: <Speed>k__BackingField
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 421145116982346578, guid: 3a7c8839bc5469443afa1e0f6096ca8b, type: 3}
+      propertyPath: mInitialAbilities.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 421145116982346578, guid: 3a7c8839bc5469443afa1e0f6096ca8b, type: 3}
+      propertyPath: 'mInitialAbilities.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 9b54fb1b20132674d9c8c53cb648965d, type: 2}
     - target: {fileID: 2535834298765314729, guid: 3a7c8839bc5469443afa1e0f6096ca8b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
