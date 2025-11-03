@@ -40,6 +40,7 @@ public class BattlePartyComponent : MonoBehaviour
             foreach (BattleCharacter battleCharacter in mBattleCharactersPrefabs)
             {
                 BattleCharacter newBattleCharacter = Instantiate(battleCharacter);
+                newBattleCharacter.Init(PartyID);
                 newBattleCharacter.onTurnStarted += CharacterInTurn;
                 mBattleCharacters.Add(newBattleCharacter);
             }

@@ -9,7 +9,7 @@ public class AbilityComponent : MonoBehaviour
 
     public int GetPartyID()
     {
-        return GetComponent<BattlePartyComponent>().PartyID; 
+        return GetComponent<BattleCharacter>().PartyID; 
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
