@@ -17,6 +17,12 @@ public class BattleManager : MonoBehaviour, ITargetService
     // int mRoundNumber = 1;
     // int mFirstTurnNextIndex = 0;
 
+    void Awake()
+    {
+        mTargetingComponent = GetComponent<TargetingComponent>();
+        mTargetingComponent.SetTargetService(this);
+    }
+
     public void StartBattle(BattlePartyComponent playerParty, BattlePartyComponent enemyParty)
     {
         mBattleCharacters.Clear();
