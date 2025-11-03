@@ -24,6 +24,7 @@ public class TargetingComponent : MonoBehaviour
         mBattleInputActions.Enable();
         mTargets.Clear();
         mTargets = mTargetService.GetTargetsForTeam(partyId, hostile);
+        mTargets[0].SetHighLighted(true);
     }
 
     void Awake()
