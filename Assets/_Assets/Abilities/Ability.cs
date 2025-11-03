@@ -4,11 +4,11 @@ using UnityEngine;
 public abstract class Ability : ScriptableObject
 {
     [field: SerializeField] public string AbilityName { get; private set; }
-    AbilityComponent mOwningAbilityComponent;
+    public AbilityComponent OwningAbilityComponent { get; private set; }
 
     internal void Init(AbilityComponent newAbility)
     {
-        mOwningAbilityComponent = newAbility; 
+        OwningAbilityComponent = newAbility; 
     }
 
     public virtual void ActiateAbility()

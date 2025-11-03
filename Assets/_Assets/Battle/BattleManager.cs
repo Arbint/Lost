@@ -111,7 +111,7 @@ public class BattleManager : MonoBehaviour, ITargetService
         party.FinishPrep();
     }
 
-    public List<BattleCharacter> GetTargetsForsTeam(int teamId, bool hostileTargets)
+    public List<BattleCharacter> GetTargetsForTeam(int teamId, bool hostileTargets)
     {
         List<BattleCharacter> targets = new List<BattleCharacter>();
         foreach(BattleCharacter battleCharacter in mBattleCharacters)

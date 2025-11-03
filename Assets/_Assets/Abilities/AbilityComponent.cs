@@ -6,6 +6,12 @@ public class AbilityComponent : MonoBehaviour
 {
     [SerializeField] Ability[] mInitialAbilities;
     List<Ability> mAbilities = new List<Ability>();
+
+    public int GetPartyID()
+    {
+        return GetComponent<BattlePartyComponent>().PartyID; 
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
