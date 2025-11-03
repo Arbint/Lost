@@ -149,6 +149,7 @@ MonoBehaviour:
   - {fileID: 5906005246517476532, guid: ff59588579289674fa02571638a9fbf9, type: 3}
   - {fileID: 5906005246517476532, guid: ff59588579289674fa02571638a9fbf9, type: 3}
   - {fileID: 5906005246517476532, guid: ff59588579289674fa02571638a9fbf9, type: 3}
+  <PartyID>k__BackingField: 1
 --- !u!95 &4569498866154138862
 Animator:
   serializedVersion: 7

@@ -12,6 +12,8 @@ public class BattlePartyComponent : MonoBehaviour
 
     public event Action<BattleCharacter> onBAttleCharacterTakeTurn;
 
+    [field: SerializeField] public int PartyID { get; private set; } = 0;
+
     void Awake()
     {
         mOwnerViewClient = GetComponent<IViewClient>();
@@ -51,7 +53,7 @@ public class BattlePartyComponent : MonoBehaviour
         onBAttleCharacterTakeTurn?.Invoke(character);
         if(mOwnerViewClient is not null && character)
         {
-            mOwnerViewClient.SetViewTarget(character.transform); 
+            mOwnerViewClient.SetViewTarget(character.transform);
         }
     }
 }

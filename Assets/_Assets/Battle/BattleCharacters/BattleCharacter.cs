@@ -9,12 +9,16 @@ public class BattleCharacter : MonoBehaviour
     [SerializeField] GameObject mTurnIndicator;
     public float CooldownDuration => 1f / Speed;
     public float CooldownTimeRemaining { get; private set; }
-
     public event Action<BattleCharacter> onTurnStarted;
-
     public event Action OnTurnFinished;
-
     AbilityComponent mAbilityComponent;
+
+    public int PartyID { get; private set; }
+
+    public void Init(int partyID)
+    {
+        PartyID = partyID;
+    }
 
     public AbilityComponent GetAbilityComponent()
     {
@@ -31,7 +35,6 @@ public class BattleCharacter : MonoBehaviour
 
     public void TakeTurn()
     {
-        // Invoke("FinishTurn", 1);
         mTurnIndicator.SetActive(true);
         onTurnStarted?.Invoke(this);
         CooldownTimeRemaining = CooldownDuration;
