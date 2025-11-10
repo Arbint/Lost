@@ -135,6 +135,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: EllenBattleCharacter
       objectReference: {fileID: 0}
+    - target: {fileID: 8743201405658416517, guid: 3a7c8839bc5469443afa1e0f6096ca8b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 8743201405658416517, guid: 3a7c8839bc5469443afa1e0f6096ca8b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 8743201405658416517, guid: 3a7c8839bc5469443afa1e0f6096ca8b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

@@ -15,9 +15,18 @@ public class BattleCharacter : MonoBehaviour
 
     public int PartyID { get; private set; }
 
-    public void Init(int partyID)
+    public void Init(int partyID, IViewClient viewClient)
     {
         PartyID = partyID;
+        if(mAbilityComponent == null)
+        {
+            mAbilityComponent = GetComponent<AbilityComponent>();
+        }
+
+        if(mAbilityComponent)
+        {
+            mAbilityComponent.SetViewClient(viewClient);
+        }
     }
 
     public AbilityComponent GetAbilityComponent()

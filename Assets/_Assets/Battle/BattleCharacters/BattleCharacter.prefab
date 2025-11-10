@@ -141,6 +141,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6496878317054042563}
+  - {fileID: 8743201405658416517}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &355473318807313742
@@ -195,3 +196,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mInitialAbilities:
   - {fileID: 11400000, guid: 9b54fb1b20132674d9c8c53cb648965d, type: 2}
+  mTargettingFollowTransform: {fileID: 8743201405658416517}
+--- !u!1 &6199746188407295243
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8743201405658416517}
+  m_Layer: 0
+  m_Name: targetingViewTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8743201405658416517
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6199746188407295243}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.35626, y: 0.19048, z: 0.29463}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2535834298765314729}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
