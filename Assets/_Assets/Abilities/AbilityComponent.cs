@@ -31,7 +31,18 @@ public class AbilityComponent : MonoBehaviour
             mOwnerViewClient.PushViewTarget(mTargettingFollowTransform);
         }
 
-        GameMode.MainGameMode.BattleManager.GetTargetingComponent().StartTargeting(GetPartyID(), hostile);
+        TargetingComponent targetingComponent = GameMode.MainGameMode.BattleManager.GetTargetingComponent();
+        targetingComponent.onTargetCancelled -= CancelTargeting;
+        targetingComponent.onTargetCancelled += CancelTargeting;
+        targetingComponent.StartTargeting(GetPartyID(), hostile);
+    }
+
+    private void CancelTargeting()
+    {
+        if(mOwnerViewClient is not null)
+        {
+            mOwnerViewClient.PopViewTarget(mTargettingFollowTransform);
+        }
     }
 
     private void GiveAbility(Ability abiltyDefaultObject)

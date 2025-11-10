@@ -99,6 +99,24 @@ public partial class @BattleInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""fee6c562-9805-4fd6-8779-ef13f3e520be"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Confirm"",
+                    ""type"": ""Button"",
+                    ""id"": ""f8ebe42b-5592-4dac-b6c7-2fdca01314d0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -178,6 +196,72 @@ public partial class @BattleInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Navigation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""04dd6dae-e6e7-494e-8eb6-40bfc7361cf7"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardMouse"",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""17621b06-06eb-4b25-82c8-242736905e36"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Controller"",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""966563c9-fb29-46c2-b5b9-8b1187667f4a"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardMouse"",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f66f1761-2582-45d3-8518-c26c78e0184b"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardMouse"",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dbfea5c4-9a30-4804-8b84-23eae466b569"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Controller"",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""567013af-b97a-41c5-9f4b-34a10d4892b9"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardMouse"",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -215,6 +299,8 @@ public partial class @BattleInputActions: IInputActionCollection2, IDisposable
         // Battle
         m_Battle = asset.FindActionMap("Battle", throwIfNotFound: true);
         m_Battle_Navigation = m_Battle.FindAction("Navigation", throwIfNotFound: true);
+        m_Battle_Cancel = m_Battle.FindAction("Cancel", throwIfNotFound: true);
+        m_Battle_Confirm = m_Battle.FindAction("Confirm", throwIfNotFound: true);
     }
 
     ~@BattleInputActions()
@@ -296,6 +382,8 @@ public partial class @BattleInputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Battle;
     private List<IBattleActions> m_BattleActionsCallbackInterfaces = new List<IBattleActions>();
     private readonly InputAction m_Battle_Navigation;
+    private readonly InputAction m_Battle_Cancel;
+    private readonly InputAction m_Battle_Confirm;
     /// <summary>
     /// Provides access to input actions defined in input action map "Battle".
     /// </summary>
@@ -311,6 +399,14 @@ public partial class @BattleInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Battle/Navigation".
         /// </summary>
         public InputAction @Navigation => m_Wrapper.m_Battle_Navigation;
+        /// <summary>
+        /// Provides access to the underlying input action "Battle/Cancel".
+        /// </summary>
+        public InputAction @Cancel => m_Wrapper.m_Battle_Cancel;
+        /// <summary>
+        /// Provides access to the underlying input action "Battle/Confirm".
+        /// </summary>
+        public InputAction @Confirm => m_Wrapper.m_Battle_Confirm;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -340,6 +436,12 @@ public partial class @BattleInputActions: IInputActionCollection2, IDisposable
             @Navigation.started += instance.OnNavigation;
             @Navigation.performed += instance.OnNavigation;
             @Navigation.canceled += instance.OnNavigation;
+            @Cancel.started += instance.OnCancel;
+            @Cancel.performed += instance.OnCancel;
+            @Cancel.canceled += instance.OnCancel;
+            @Confirm.started += instance.OnConfirm;
+            @Confirm.performed += instance.OnConfirm;
+            @Confirm.canceled += instance.OnConfirm;
         }
 
         /// <summary>
@@ -354,6 +456,12 @@ public partial class @BattleInputActions: IInputActionCollection2, IDisposable
             @Navigation.started -= instance.OnNavigation;
             @Navigation.performed -= instance.OnNavigation;
             @Navigation.canceled -= instance.OnNavigation;
+            @Cancel.started -= instance.OnCancel;
+            @Cancel.performed -= instance.OnCancel;
+            @Cancel.canceled -= instance.OnCancel;
+            @Confirm.started -= instance.OnConfirm;
+            @Confirm.performed -= instance.OnConfirm;
+            @Confirm.canceled -= instance.OnConfirm;
         }
 
         /// <summary>
@@ -427,5 +535,19 @@ public partial class @BattleInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnNavigation(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Cancel" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCancel(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Confirm" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnConfirm(InputAction.CallbackContext context);
     }
 }

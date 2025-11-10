@@ -16,6 +16,9 @@ public class TargetingComponent : MonoBehaviour
 
     int mCurrentlySelectedTargetIndex = -1;
 
+    public event Action<BattleCharacter> onTargetPicked;
+    public event Action onTargetCancelled;
+
     public void SetTargetService(ITargetService targetService)
     {
         mTargetService = targetService;
@@ -34,7 +37,36 @@ public class TargetingComponent : MonoBehaviour
         mBattleInputActions = new BattleInputActions();
         mBattleInputActions.Battle.Navigation.performed += HandleTargetNavigation;
         mBattleInputActions.Battle.Navigation.canceled += HandleTargetNavigation;
+        mBattleInputActions.Battle.Cancel.performed += CancelTargeting;
+        mBattleInputActions.Battle.Confirm.performed += ConfirmTarget;
         mBattleInputActions.Disable();
+    }
+
+    private void ConfirmTarget(InputAction.CallbackContext context)
+    {
+        mBattleInputActions.Disable();
+    }
+
+    private void CancelTargeting(InputAction.CallbackContext context)
+    {
+        BattleCharacter battleCharacter = GetCurrentlySelectedTarget();
+        if (battleCharacter)
+        {
+            battleCharacter.SetHighLighted(false);
+        }
+
+        mBattleInputActions.Disable();
+        onTargetCancelled?.Invoke();
+    }
+
+    BattleCharacter GetCurrentlySelectedTarget()
+    {
+        if (mCurrentlySelectedTargetIndex >= 0 && mCurrentlySelectedTargetIndex < mTargets.Count)
+        {
+            return mTargets[mCurrentlySelectedTargetIndex];
+        }
+
+        return null;
     }
 
     void OnEnable()
