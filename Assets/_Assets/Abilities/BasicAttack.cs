@@ -30,5 +30,7 @@ public class BasicAttack : Ability
         OwningAbilityComponent.onTargetCancelled -= TargetCancelled;
 
         Debug.Log($"atacking: {character.gameObject.name}");
+
+        OwningAbilityComponent.MoveToTarget(character.transform.position);
     }
 }

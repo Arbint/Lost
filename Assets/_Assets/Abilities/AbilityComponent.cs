@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AbilityComponent : MonoBehaviour
 {
@@ -12,6 +13,13 @@ public class AbilityComponent : MonoBehaviour
 
     public event Action onTargetCancelled;
     public event Action<BattleCharacter> onTargetPicked;
+
+    NavMeshAgent mNavMeshAgent;
+
+    void Awake()
+    {
+        mNavMeshAgent = GetComponent<NavMeshAgent>();
+    }
 
     public int GetPartyID()
     {
@@ -55,6 +63,10 @@ public class AbilityComponent : MonoBehaviour
     private void TargetPicked(BattleCharacter character)
     {
         UnSubscribeToTargetingDelegates();
+        if (mOwnerViewClient is not null)
+        {
+            mOwnerViewClient.PopViewTarget(mTargettingFollowTransform);
+        }
         onTargetPicked?.Invoke(character);
     }
 
@@ -84,5 +96,10 @@ public class AbilityComponent : MonoBehaviour
     internal void SetViewClient(IViewClient viewClient)
     {
         mOwnerViewClient = viewClient;
+    }
+
+    public void MoveToTarget(Vector3 targetPosition)
+    {
+        mNavMeshAgent.SetDestination(targetPosition);
     }
 }
