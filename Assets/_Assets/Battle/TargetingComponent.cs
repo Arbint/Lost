@@ -45,17 +45,24 @@ public class TargetingComponent : MonoBehaviour
     private void ConfirmTarget(InputAction.CallbackContext context)
     {
         mBattleInputActions.Disable();
-    }
-
-    private void CancelTargeting(InputAction.CallbackContext context)
-    {
         BattleCharacter battleCharacter = GetCurrentlySelectedTarget();
         if (battleCharacter)
         {
             battleCharacter.SetHighLighted(false);
         }
 
+        onTargetPicked?.Invoke(battleCharacter);
+    }
+
+    private void CancelTargeting(InputAction.CallbackContext context)
+    {
         mBattleInputActions.Disable();
+        BattleCharacter battleCharacter = GetCurrentlySelectedTarget();
+        if (battleCharacter)
+        {
+            battleCharacter.SetHighLighted(false);
+        }
+
         onTargetCancelled?.Invoke();
     }
 
