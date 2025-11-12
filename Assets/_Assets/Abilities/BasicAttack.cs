@@ -58,7 +58,15 @@ public class BasicAttack : Ability
 
         if(eventTag == "AttackFinished")
         {
-            OwningAbilityComponent.MoveBackToPartySpot(); 
+            OwningAbilityComponent.MoveBackToPartySpot();
+            OwningAbilityComponent.onMoveBackToPartySpotFinished += MovedBack;
         }
     }
+
+    private void MovedBack()
+    {
+        OwningAbilityComponent.onMoveBackToPartySpotFinished -= MovedBack;
+        EndAbility();
+    }
 }
+
