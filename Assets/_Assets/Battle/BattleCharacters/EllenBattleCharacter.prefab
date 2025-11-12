@@ -135,6 +135,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: EllenBattleCharacter
       objectReference: {fileID: 0}
+    - target: {fileID: 4812279456512494981, guid: 3a7c8839bc5469443afa1e0f6096ca8b, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: a5674d01884853d4e8f2386a171e14d9, type: 3}
+    - target: {fileID: 4812279456512494981, guid: 3a7c8839bc5469443afa1e0f6096ca8b, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 9f0bf8f59603efb4c8f6934f1c499da6, type: 2}
     - target: {fileID: 8743201405658416517, guid: 3a7c8839bc5469443afa1e0f6096ca8b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.24

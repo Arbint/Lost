@@ -60,6 +60,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChomperBattleCharacter
       objectReference: {fileID: 0}
+    - target: {fileID: 4812279456512494981, guid: 3a7c8839bc5469443afa1e0f6096ca8b, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 2732fe64dd2799f439fb845921df626b, type: 3}
+    - target: {fileID: 4812279456512494981, guid: 3a7c8839bc5469443afa1e0f6096ca8b, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: c6bac5b346bac4242829515cfd5c1f62, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

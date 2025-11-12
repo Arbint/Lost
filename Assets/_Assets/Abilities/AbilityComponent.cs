@@ -16,6 +16,8 @@ public class AbilityComponent : MonoBehaviour
 
     NavMeshAgent mNavMeshAgent;
 
+    bool mHasReachedDestination = true;
+
     void Awake()
     {
         mNavMeshAgent = GetComponent<NavMeshAgent>();
@@ -100,6 +102,30 @@ public class AbilityComponent : MonoBehaviour
 
     public void MoveToTarget(Vector3 targetPosition)
     {
+        mHasReachedDestination = false;
         mNavMeshAgent.SetDestination(targetPosition);
+    }
+
+    void Update()
+    {
+        UpdateNavigation(); 
+    }
+
+    private void UpdateNavigation()
+    {
+        if (mHasReachedDestination)
+            return;
+
+        if (mNavMeshAgent.pathPending)
+            return;
+
+        if (mNavMeshAgent.remainingDistance > mNavMeshAgent.stoppingDistance)
+            return;
+
+        if(!mNavMeshAgent.hasPath || mNavMeshAgent.velocity.sqrMagnitude == 0f)
+        {
+            mHasReachedDestination = true;
+            Debug.Log($"Finished Move");
+        }
     }
 }

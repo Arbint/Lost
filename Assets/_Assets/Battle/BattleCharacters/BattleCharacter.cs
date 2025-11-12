@@ -20,6 +20,8 @@ public class BattleCharacter : MonoBehaviour
 
     NavMeshAgent mNavMeshAgent;
 
+    Animator mAnimator;
+
     public void Init(int partyID, IViewClient viewClient)
     {
         PartyID = partyID;
@@ -46,6 +48,12 @@ public class BattleCharacter : MonoBehaviour
 
         mAbilityComponent = GetComponent<AbilityComponent>();
         mNavMeshAgent = GetComponent<NavMeshAgent>();
+        mAnimator = GetComponent<Animator>();
+    }
+
+    void Update()
+    {
+        mAnimator.SetFloat("Speed", mNavMeshAgent.velocity.magnitude);
     }
 
     public void SetHighLighted(bool highted)
