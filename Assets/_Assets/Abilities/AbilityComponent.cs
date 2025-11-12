@@ -10,9 +10,12 @@ public class AbilityComponent : MonoBehaviour
 
     IViewClient mOwnerViewClient;
 
+    public event Action onTargetCancelled;
+    public event Action<BattleCharacter> onTargetPicked;
+
     public int GetPartyID()
     {
-        return GetComponent<BattleCharacter>().PartyID; 
+        return GetComponent<BattleCharacter>().PartyID;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -26,23 +29,44 @@ public class AbilityComponent : MonoBehaviour
 
     public void StartTargeting(bool hostile)
     {
-        if(mOwnerViewClient is not null)
+        if (mOwnerViewClient is not null)
         {
             mOwnerViewClient.PushViewTarget(mTargettingFollowTransform);
         }
 
         TargetingComponent targetingComponent = GameMode.MainGameMode.BattleManager.GetTargetingComponent();
-        targetingComponent.onTargetCancelled -= CancelTargeting;
-        targetingComponent.onTargetCancelled += CancelTargeting;
+        SubscribeToTargetingDelegates();
         targetingComponent.StartTargeting(GetPartyID(), hostile);
+    }
+
+    void SubscribeToTargetingDelegates()
+    {
+        UnSubscribeToTargetingDelegates();
+        GameMode.MainGameMode.BattleManager.GetTargetingComponent().onTargetCancelled += CancelTargeting;
+        GameMode.MainGameMode.BattleManager.GetTargetingComponent().onTargetPicked += TargetPicked;
+    }
+
+    void UnSubscribeToTargetingDelegates()
+    {
+        GameMode.MainGameMode.BattleManager.GetTargetingComponent().onTargetCancelled -= CancelTargeting;
+        GameMode.MainGameMode.BattleManager.GetTargetingComponent().onTargetPicked -= TargetPicked;
+    }
+
+    private void TargetPicked(BattleCharacter character)
+    {
+        UnSubscribeToTargetingDelegates();
+        onTargetPicked?.Invoke(character);
     }
 
     private void CancelTargeting()
     {
-        if(mOwnerViewClient is not null)
+        UnSubscribeToTargetingDelegates();
+        if (mOwnerViewClient is not null)
         {
             mOwnerViewClient.PopViewTarget(mTargettingFollowTransform);
         }
+
+        onTargetCancelled?.Invoke();
     }
 
     private void GiveAbility(Ability abiltyDefaultObject)

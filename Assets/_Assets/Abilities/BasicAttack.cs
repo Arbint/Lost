@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,5 +9,26 @@ public class BasicAttack : Ability
     {
         base.ActiateAbility();
         OwningAbilityComponent.StartTargeting(true);
+
+        OwningAbilityComponent.onTargetPicked -= TargetPicked;
+        OwningAbilityComponent.onTargetCancelled -= TargetCancelled;
+
+        OwningAbilityComponent.onTargetPicked += TargetPicked;
+        OwningAbilityComponent.onTargetCancelled += TargetCancelled;
+    }
+
+    private void TargetCancelled()
+    {
+        OwningAbilityComponent.onTargetPicked -= TargetPicked;
+        OwningAbilityComponent.onTargetCancelled -= TargetCancelled;
+        EndAbility();
+    }
+
+    private void TargetPicked(BattleCharacter character)
+    {
+        OwningAbilityComponent.onTargetPicked -= TargetPicked;
+        OwningAbilityComponent.onTargetCancelled -= TargetCancelled;
+
+         
     }
 }

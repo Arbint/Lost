@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
+using System;
 
 public class BattleWidget : MonoBehaviour
 {
@@ -28,10 +29,25 @@ public class BattleWidget : MonoBehaviour
             foreach (Ability ability in abilityComponent.GetAbilities())
             {
                 AddAbilityToAbilityList(ability);
+                ability.onAbilityActivated -= AbilityActivated;
+                ability.onAbilityActivated += AbilityActivated;
+
+                ability.onAbilityEnded -= AbilityEnded;
+                ability.onAbilityEnded += AbilityEnded;
             }
         }
 
         EventSystem.current.SetSelectedGameObject(mAbilityWidgets[0].gameObject); 
+    }
+
+    private void AbilityEnded()
+    {
+        gameObject.SetActive(true);
+    }
+
+    private void AbilityActivated()
+    {
+        gameObject.SetActive(false);
     }
 
     private void AddAbilityToAbilityList(Ability ability)
